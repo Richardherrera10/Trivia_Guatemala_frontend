@@ -1,0 +1,214 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+#feedback-form {
+  width: 650px;
+  margin: 50px auto;
+  background-color: #fcfcfc;
+  padding: 20px 50px 40px;
+  box-shadow: 1px 4px 10px 1px #aaa;
+  font-family: sans-serif;
+}
+
+#feedback-form * {
+    box-sizing: border-box;
+}
+
+#feedback-form h2{
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#feedback-form input {
+  margin-bottom: 15px;
+}
+#feedback-form input[type=number] {
+ display: flex;
+ width: 100px;
+}
+
+#feedback-form input[type=text], textarea {
+  display: block;
+  height: 32px;
+  padding: 6px 16px;
+  width: 100%;
+  border: none;
+  background-color: #f3f3f3;
+}
+
+#feedback-form  textarea {
+  display: block;
+  height: 75px;
+  padding: 6px 16px;
+  width: 100%;
+  border: none;
+  background-color: #f3f3f3;
+}
+
+#feedback-form label {
+  color: #777;
+  font-size: 0.8em;
+}
+
+#feedback-form input[type=checkbox] {
+  float: left;
+}
+
+#feedback-form input:not(:checked) + #feedback-phone {
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+#feedback-form #feedback-phone {
+  transition: .3s;
+}
+
+#feedback-form button[type=submit] {
+  display: block;
+  margin: 20px auto 0;
+  width: 150px;
+  height: 40px;
+  border-radius: 25px;
+  border: none;
+  color: #eee;
+  font-weight: 700;
+  box-shadow: 1px 4px 10px 1px #aaa;
+  
+  background: #207cca; /* Old browsers */
+  background: -moz-linear-gradient(left, #207cca 0%, #9f58a3 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, #207cca 0%,#9f58a3 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, #207cca 0%,#9f58a3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#207cca', endColorstr='#9f58a3',GradientType=1 ); /* IE6-9 */
+}
+
+.custom-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  height: 3em;
+  padding: 10px 38px 10px 16px;
+  background: #fff no-repeat right 16px center;
+  background-size: 10px;
+  transition: border-color .1s ease-in-out,box-shadow .1s ease-in-out;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  margin-bottom: 15px;
+}
+.custom-select:hover {
+  border: 1px solid #999;
+}
+.custom-select:focus {
+  border: 1px solid #999;
+  box-shadow: 0 3px 5px 0 rgba(0,0,0,.2);
+  outline: none;
+}
+
+
+
+
+/* card */
+
+body
+{
+   font-family: sans-serif;
+    
+}
+.container_card {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  
+}
+.pricing_table_wdg {  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	border:1px solid #c4cbcc;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	float:left;
+	margin-top: 25px;
+  
+}
+.pricing_table_wdg ul { 
+	list-style:none; 
+	float:left; 
+  height: 300px;
+	width:300px; 
+	margin:1em; 
+	border:1px solid #f2f3f3;
+	padding:5px;
+	text-align:center;
+	background-color:#FFF;
+}
+.pricing_table_wdg ul:hover { 
+	-webkit-transform: scale(1.1);
+  	-moz-transform: scale(1.1);
+  	-o-transform: scale(1.1);
+  	-moz-box-shadow:3px 5px 7px rgba(0,0,0,.7);
+  	-webkit-box-shadow: 3px 5px 7px rgba(0,0,0,.7);
+  	box-shadow:3px 5px 7px rgba(0,0,0,.7);
+	cursor:pointer;
+	background:#d8e9f9;
+}
+.pricing_table_wdg ul li {  
+	border-bottom:1px dashed #cfd2d2;
+	padding:10px 0;
+}
+.pricing_table_wdg ul li:first-child { 
+	color:#FFFFFF;
+	font-size:22px;
+	font-weight:bold;
+	background:#2e818f;
+}
+.pricing_table_wdg ul li:nth-child(2) { 
+	background:#fbfbfb;
+  font-weight:bold;
+  font-size: 20px;
+}
+.pricing_table_wdg ul li:nth-child(3) { 
+	font-size:16px;
+}
+.pricing_table_wdg ul li:nth-child(n+4) { 
+	font-size:14px;
+}
+
+
+/* navbar */
+
+.container-navbar{
+  background-color: rgb(88, 191, 255);
+}
+.navbar .navbar-nav .nav-link {
+  color: #000000;
+  font-size: 1.1em;
+}
+.navbar .navbar-nav .nav-link:hover{
+  color: #000000;
+}
+@media only screen and (min-width: 960px) {
+.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0;
+}
+.dropdown .dropdown-menu {
+  display: none;
+}
+.dropdown:hover .dropdown-toggle::after {
+  border-bottom: 0.3em solid;
+  border-top: 0;
+}
+}
+@media screen and (max-width: 991px) {
+.dropdown-toggle.show::after {
+  border-top: 0;
+  border-bottom: 0.3em solid;
+}
+}
+
+
+.buttons, a:link {
+ 
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+
+}
