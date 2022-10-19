@@ -1,5 +1,5 @@
 import React from 'react'
-import { ListPcComponent } from '../pcComponents/ListPcComponent'
+
 import Layout from '../layout/Layout'
 import Login from '../login/Login'
 

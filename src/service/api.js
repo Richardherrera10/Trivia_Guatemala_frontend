@@ -1,6 +1,9 @@
 import axios from "axios"
 
-export const postComponent = async (component_type, component) => {
+export default axios.create({
+    baseURL: 'https://triviaguatemala.webmands.com/public/api'
+})
+/* export const postComponent = async (component_type, component) => {
     console.log('componente type', component_type)
     console.log('todo componente', component)
     let response = await axios.post(`http://127.0.0.1:8000/api/v1/${component_type}/`, component)
@@ -53,4 +56,4 @@ export const postPc = async (pcData) => {
     console.log('pc data to send to api', pcData)
      let response = await axios.post(`http://127.0.0.1:8000/api/v1/computer/`, pcData)
     console.log('response post pc', response)
-}
+} */
