@@ -41,9 +41,9 @@ useEffect(() => {
    }
 }, [])
 
-// useEffect(() => {
-// setCurrentQuestion(data.question)
-// }, [])
+useEffect(() => {
+setCurrentQuestion(data.question)
+}, [])
 
 
 
