@@ -1,7 +1,6 @@
 import React from 'react'
 import {Route, Routes, useParams} from 'react-router-dom'
 import HomeContainer from '../components/container/HomeContainer'
-
 import LoginContainer from '../components/container/LoginContainer'
 import TriviaContainer from '../components/container/TriviaContainer'
 import Login from '../components/login/Login'

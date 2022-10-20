@@ -3,21 +3,35 @@ import {Link} from 'react-router-dom';
 import styles from './Navbar.css'
 import ProgressBar from '../../progress/ProgressBar';
 import ProgressBarContainer from '../../container/ProgressBarContainer';
-
+import { Navigate } from "react-router-dom";
 import React from 'react'
 import UserContext from '../../../UserContext';
 
 
 export default function Navbar() {
-  
-  const [value, setValue] = useState(0);
+  const [isCorrectInfo, setIsCorrectInfo] = useState(false)
   const { loginName } = useContext(UserContext)
   const { data } = useContext(UserContext)
-  const {addLevel} = useContext(UserContext)
   console.log('name deberia ser', loginName)
   console.log('info de niveles', data)
 
-  
+  const logout = async (e) => {
+    e.preventDefault()
+    
+    setIsCorrectInfo(true);
+    // const data = { email:email, password: pwd, password_confirmation: pwd };
+    // axios.post("https://triviaguatemala.webmands.com/public/api/logout", data)
+    //     .then(response => {
+    //         console.log(response)
+    //         localStorage.removeItem('token')
+    //         setIsCorrectInfo(true)
+    //       },
+    //     )
+    //     .catch(error=>{
+    //         setError("El correo o la contraseña son incorrectos");
+    //       }
+    //     );
+  }
 /*   useEffect(() => {
     const interval = setInterval(() => {
       setValue(oldValue => {
@@ -33,42 +47,35 @@ export default function Navbar() {
   }, []); */
 
 
-  return (     
-        
+  return (
+    <>
+    {!isCorrectInfo ? (
       <nav class="navbar navbar-custom ">
-      <div class="hamburger-menu">
-          <input id="menu__toggle" type="checkbox" />
-          <label class="menu__btn" for="menu__toggle">
-          <span></span>
-          </label>
+        <div class="hamburger-menu">
+            <input id="menu__toggle" type="checkbox" />
+            <label class="menu__btn" for="menu__toggle">
+            <span></span>
+            </label>
 
-        <ul class="menu__box">
-          <li><a class="menu__item" href="#">Mi Perfil</a></li> 
-          <li><a class="menu__item" href="#">Ranking Amigos</a></li>
-          <li><a class="menu__item" href="#">Configuraciones</a></li>
-        </ul>
-      </div>
-      {console.log('login name en la navbar', loginName)}
-      <a class="navbar-brand">Bienvenido {loginName}</a> 
-      
-      <div className='progreso'>
-      <p> Nivel {data.level + 1}</p>
-      <ProgressBar color={"#ff7979"} width={"150px"} value={30} max={100} />
-      <p> 30%</p>
-      </div>
-      
+          <ul class="menu__box">
+            <li><button className="btn btn-sm btn-secondary" onClick={logout}>Salir</button></li>
+            {/* <li><a class="menu__item" href="#">Mi Perfil</a></li>  */}
+            {/* <li><a class="menu__item" href="#">Ranking Amigos</a></li> */}
+            {/* <li><a class="menu__item" href="#">Configuraciones</a></li> */}
+          </ul>
+        </div>
+        {console.log('login name en la navbar', loginName)}
+        <a class="navbar-brand">Bienvenido {loginName}</a> 
         
-     
-      
-    </nav>
-     
-       
-      
-          
-     
-
-      
-
+        <div className='progreso'>
+        <p> Nivel {data.level + 1}</p>
+        <ProgressBar color={"#ff7979"} width={"150px"} value={30} max={100} />
+        <p> 30%</p>
+        </div>
+      </nav>):(
+        <Navigate to='/login'/>
+      )}
+    </>
   )
 }
 /* 

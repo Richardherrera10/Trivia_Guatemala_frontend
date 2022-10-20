@@ -1,82 +1,70 @@
 import {useState, useContext} from 'react'
-import styles from './login.css'
-import axios from '../../service/api';
-import { useNavigate } from "react-router-dom";
-import HomeContainer from '../container/HomeContainer';
-import Navbar from '../layout/navbar/Navbar';
-const LOGIN_URL = '/login'
-import Layout from '../layout/Layout';
-import {Route, Routes, useParams} from 'react-router-dom'
 import { Navigate } from "react-router-dom";
-import UserContext from '../../UserContext';
+import axios from '../../service/api';
 
 export default function Login() {
 
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
-  const [pwdConfirm, setPwdConfirm] = useState('');
+  const [error, setError] = useState("");
   const [isCorrectInfo, setIsCorrectInfo] = useState(false)
   
-  const navigate = useNavigate()
-
-  const  { apiResponse }= useContext(UserContext)
-
-
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(email, pwd, pwdConfirm)
-
-    console.log('login axios')
-    apiResponse(email, pwd, pwdConfirm)
-    /* try {
-      const response = await axios.post(LOGIN_URL,
-        JSON.stringify({email, password: pwd, password_confirmation: pwdConfirm}), 
-        {
-            headers: {'Content-Type': 'application/json'},
-            withCredentials: false
-        }
-    )
-    console.log('si inicie')
-    setIsCorrectInfo(true)
+    console.log(email, pwd, pwd);
     
-    console.log(response.data.user_name)
-    setName(response.data.user_name)
-    
-
-    } catch (error) {
-      console.log('no inicie')
-      console.log(error)
-    } 
-    setName(email)
-    */
-    setIsCorrectInfo(true)
-    
+    const data = { email:email, password: pwd, password_confirmation: pwd };
+    axios.post("https://triviaguatemala.webmands.com/public/api/login", data)
+        .then(response => {
+            console.log(response)
+            localStorage.setItem('token', response.data.token);
+            setIsCorrectInfo(true)
+          },
+        )
+        .catch(error=>{
+            setError("El correo o la contraseña son incorrectos");
+          }
+        );
   }
  
   return (
-    <>
-    
-{!isCorrectInfo ? (<div class="login-block">
-  <form onSubmit={handleSubmit}>
-    <h1>Login</h1>
-    <input type="text"  placeholder="email" id="username" onChange={(e) => setEmail(e.target.value)}/>
-    <input type="password" placeholder="Password" id="password" onChange={(e) => setPwd(e.target.value)}/>
-    <input type="password" placeholder="Confirm Password" id="password confirmation" onChange={(e) => setPwdConfirm(e.target.value)}/>
-    <button >Iniciar Sesión</button>
-  </form>
-    
-</div>) : (
-    
-    
+    <> 
+    {!isCorrectInfo ? (
+      <div className="container vh-100">    
+          <a className="btn btn-customized float-button" href="/register">REGISTRARSE</a>
+          {error != null ? (
+            <p className='text-center text-danger mb-0 font-weight-bold'>{error}</p>
+            ) : isLoading ? (
+              <h2>Loading...</h2>
+            ) : (
+              <div>
+              </div>
+            )
+          }
+          <div className="row h-100 justify-content-center align-items-center">
+              <div className="col-10 col-md-8 col-lg-6  mw-400">
+                  <div className="card shadow p-3 mb-5 bg-white rounded">
+                      <div className="card-body">
+                          <form className="form-example text-center" onSubmit={handleSubmit} method="post">
+                              <h1 className="mt-1 font-weight-bold text-center">Ingresar</h1>
+                              <div className="form-group text-left">
+                                  <label htmlFor="username" className="font-weight-bold">Correo electrónico:</label>
+                                  <input required type="email" className="form-control form-control-sm username" id="username" name="username" onChange={(e) => setEmail(e.target.value)}/>
+                              </div>
+                              <div className="form-group text-left">
+                                  <label htmlFor="password" className="font-weight-bold">Contraseña:</label>
+                                  <input required type="password" className="form-control form-control-sm password" id="password" name="password" onChange={(e) => setPwd(e.target.value)}/>
+                              </div>
+                              <button type="submit" className="btn btn-customized">INGRESAR</button>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    ):(
       <Navigate to='/dashboard'/>
-          
-        
-      
-       
-    
-    
-  )}
-
+    )}
     </>
   )
 }
