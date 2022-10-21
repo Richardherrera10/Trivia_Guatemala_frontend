@@ -50,22 +50,22 @@ export default function Navbar() {
   return (
     <>
     {!isCorrectInfo ? (
-      <nav class="navbar navbar-custom ">
-        <div class="hamburger-menu">
+      <nav className="navbar navbar-custom ">
+        <div className="hamburger-menu">
             <input id="menu__toggle" type="checkbox" />
-            <label class="menu__btn" for="menu__toggle">
+            <label className="menu__btn" for="menu__toggle">
             <span></span>
             </label>
 
-          <ul class="menu__box">
+          <ul className="menu__box">
             <li><button className="btn btn-sm btn-secondary" onClick={logout}>Salir</button></li>
-            {/* <li><a class="menu__item" href="#">Mi Perfil</a></li>  */}
-            {/* <li><a class="menu__item" href="#">Ranking Amigos</a></li> */}
-            {/* <li><a class="menu__item" href="#">Configuraciones</a></li> */}
+            {/* <li><a className="menu__item" href="#">Mi Perfil</a></li>  */}
+            {/* <li><a className="menu__item" href="#">Ranking Amigos</a></li> */}
+            {/* <li><a className="menu__item" href="#">Configuraciones</a></li> */}
           </ul>
         </div>
         {console.log('login name en la navbar', loginName)}
-        <a class="navbar-brand">Bienvenido {loginName}</a> 
+        <a className="navbar-brand">Bienvenido {loginName}</a> 
         
         <div className='progreso'>
         <p> Nivel {data.level + 1}</p>
@@ -89,22 +89,22 @@ class Navbar extends Component{
     return(
      
         
-      <nav class="navbar navbar-custom ">
-      <div class="hamburger-menu">
+      <nav className="navbar navbar-custom ">
+      <div className="hamburger-menu">
           <input id="menu__toggle" type="checkbox" />
-          <label class="menu__btn" for="menu__toggle">
+          <label className="menu__btn" for="menu__toggle">
           <span></span>
           </label>
 
-        <ul class="menu__box">
-          <li><a class="menu__item" href="#">Home</a></li>
-          <li><a class="menu__item" href="#">About</a></li>
-          <li><a class="menu__item" href="#">Team</a></li>
-          <li><a class="menu__item" href="#">Contact</a></li>
-          <li><a class="menu__item" href="#">Twitter</a></li>
+        <ul className="menu__box">
+          <li><a className="menu__item" href="#">Home</a></li>
+          <li><a className="menu__item" href="#">About</a></li>
+          <li><a className="menu__item" href="#">Team</a></li>
+          <li><a className="menu__item" href="#">Contact</a></li>
+          <li><a className="menu__item" href="#">Twitter</a></li>
         </ul>
       </div>
-      <a class="navbar-brand">Bienvenido Usuario</a>
+      <a className="navbar-brand">Bienvenido Usuario</a>
       
       <ProgressBar value ={50} max = {100}/>
     </nav>
@@ -123,8 +123,8 @@ class Navbar extends Component{
 
      
 
-{/* <div class="nav-wrapper">
-    <ul class="list list-main">
+{/* <div className="nav-wrapper">
+    <ul className="list list-main">
         
           
      
@@ -138,32 +138,32 @@ class Navbar extends Component{
      
         
     </ul>
-    <ul class="list list-secondary">
+    <ul className="list list-secondary">
         <li><a >Log In</a></li>
         <li><a >Sign Up</a></li>
     </ul>
 </div> */}
- {/* <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+ {/* <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
 
-        <ul  class="navbar-nav">
+        <ul  className="navbar-nav">
 
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+          <li className="nav-item dropdown">
+            <a className="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
             Menu
             </a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item">Link 1</a>
-              <a class="dropdown-item" >Link 2</a>
-              <a class="dropdown-item">Link 3</a>
+            <div className="dropdown-menu">
+              <a className="dropdown-item">Link 1</a>
+              <a className="dropdown-item" >Link 2</a>
+              <a className="dropdown-item">Link 3</a>
             </div>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link" href="#">Nombre Usuario</a>
+          <li className="nav-item">
+            <a className="nav-link" href="#">Nombre Usuario</a>
           </li>
 
-          <li id='nav-flex' class="nav-item">
-            <a class="nav-link" href="#">Link 2</a>
+          <li id='nav-flex' className="nav-item">
+            <a className="nav-link" href="#">Link 2</a>
           </li>
 
         </ul>
@@ -202,7 +202,7 @@ class Navbar extends Component{
                  <Link to='/computer'><div className="nav-link" >Computer</div></Link> 
           </li>
           <li className="nav-item">
-                 <Link to='/login'><div className="nav-link" ><button type="button" class="btn btn-warning">Login</button></div></Link> 
+                 <Link to='/login'><div className="nav-link" ><button type="button" className="btn btn-warning">Login</button></div></Link> 
           </li>
         </ul>
     </div>

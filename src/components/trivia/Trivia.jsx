@@ -25,16 +25,13 @@ useEffect(() => {
   while (numQuestions <= 10) {
 
     const getAllQs = async ()=> {
- 
       const response = await axios.get(`/trivia/question/${numQuestions}`,
         { headers : {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`} 
+          'Authorization': `Bearer ${localStorage.getItem('token')}`} 
         }
       )
-     
       setArrayPreguntas(arrayPreguntas => [...arrayPreguntas, response.data])
-      
     }
     getAllQs()
     ++numQuestions
@@ -50,14 +47,12 @@ setCurrentQuestion(data.question)
 let arrayOpciones = []
 
 arrayPreguntas.forEach(element=>{
-  
   arrayOpciones.push({
     texto: element.pregunta,
     opciones: [
       element.respuesta_1, element.respuesta_2, element.respuesta_3
     ]
   })
-
 })
 
 console.log('arrayopciones', arrayOpciones)
