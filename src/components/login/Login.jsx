@@ -18,7 +18,15 @@ export default function Login() {
         .then(response => {
             console.log(response)
             localStorage.setItem('token', response.data.token);
-            setIsCorrectInfo(true)
+            localStorage.setItem('user_name', response.data.user_name);
+            localStorage.setItem('question', response.data.question);
+            if(response.data.question == 0){
+              localStorage.setItem('userActualQuestion', 1);
+            }else{
+              localStorage.setItem('userActualQuestion', response.data.question);
+            }
+            localStorage.setItem('level', response.data.level);
+            setIsCorrectInfo(true);
           },
         )
         .catch(error=>{
@@ -63,7 +71,7 @@ export default function Login() {
           </div>
       </div>
     ):(
-      <Navigate to='/dashboard'/>
+      <Navigate to='/'/>
     )}
     </>
   )

@@ -22,12 +22,12 @@ export function UserProvider({children}){
         )
         
         
-        console.log('info es', response.data)
+        // console.log('info es', response.data)
         
 
         setLoginName(response.data.user_name)
         setToken(response.data.token)
-        console.log('luego de api', loginName)
+        // console.log('luego de api', loginName)
 
         const responseInfo = await axios.post(RESPONSE_URL,
             JSON.stringify({isCorrect: 0}), 
@@ -37,7 +37,7 @@ export function UserProvider({children}){
             }
             
         )
-        console.log('info de preguntas  y nivel', responseInfo.data)
+        // console.log('info de preguntas  y nivel', responseInfo.data)
         
         if( responseInfo.data.question === null) {
             responseInfo.data.question = 0
@@ -53,7 +53,7 @@ export function UserProvider({children}){
     useEffect(() => {
         
         
-        console.log('nombre es',loginName )
+        // console.log('nombre es',loginName )
         setIsReady(true)
 
      }, [apiResponse]);

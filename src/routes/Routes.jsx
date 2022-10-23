@@ -13,16 +13,13 @@ export function RoutesApp () {
     
         return (
             <UserProvider>
-            <Routes>
-
-                <Route path="/dashboard" element={<HomeContainer />}></Route>
-
-                <Route path="/login" element={<Login />}></Route>
-                <Route path="/register" element={<Register />}></Route>
-                <Route path="/trivia" element={<TriviaContainer />}></Route>
-                
-          </Routes>
-          </UserProvider>
+                <Routes>
+                    <Route path="/" element={<HomeContainer />} ></Route>
+                    <Route path="/login" element={<Login />}></Route>
+                    <Route path="/register" element={<Register />}></Route>
+                    <Route path="/trivia" element={<TriviaContainer />}></Route>
+                </Routes>
+            </UserProvider>
         )
 
 }
