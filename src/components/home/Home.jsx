@@ -5,6 +5,7 @@ import Sad from '../../../public/Sad'
 
 import { useNavigate, Navigate } from "react-router-dom";
 import { useEffect } from 'react';
+import styles from './Home.css'
 export default function Home() {
     
    const navigate = useNavigate()
@@ -21,7 +22,7 @@ export default function Home() {
          {(localStorage.getItem('token') == null) ? (
                <Navigate to='/login'/>
             ) : (
-               <div>
+               <>
                   <Canvas
                      camera={{ position: [2, 0, 15], fov: 15 }}
                      style={{
@@ -43,8 +44,8 @@ export default function Home() {
                      </Suspense>
                      
                   </Canvas>
-                  <button onClick={navigateTrivia} className="btn btn-customized button-77">JUGAR</button>
-               </div>
+                  <button onClick={navigateTrivia} className="button-77" id='btnJugar'>JUGAR</button>
+               </>
             )}
       </>       
      );
