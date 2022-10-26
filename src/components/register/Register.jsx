@@ -1,10 +1,11 @@
 import {useRef, useState, useEffect} from 'react'
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Navigate } from "react-router-dom";
 import styles from './Register.css'
 import axios from '../../service/api';
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{6,24}$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = '/register'
 
 export default function Register() {
@@ -12,7 +13,6 @@ export default function Register() {
     const userRef = useRef();
     const errRef = useRef();
     const [error, setError] = useState("");
-
     const [user, setUser] = useState('');
     const [validName, setValidName] = useState(false);
     const [userFocus, setUserFocus] = useState(false);
@@ -33,8 +33,6 @@ export default function Register() {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
     
-    const [msg, setMsg] = useState('')
-
     useEffect (()=> {
         userRef.current.focus()
     },[])
@@ -55,45 +53,31 @@ export default function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         console.log(name,pwd, email)
-    
-        let nameLength = name.trim().length
-        let emailLength = email.trim().length
-        let pwdLength = pwd.trim().length
-        let matchPwdLength = matchPwd.trim().length
         const data = { name: name, email:email, password: pwd, password_confirmation: pwd };
-       
         axios.post("https://triviaguatemala.webmands.com/public/api/register", data)
             .then(response => {
-                console.log(response)
                 localStorage.setItem('token', response.data.token);
-                //setSuccess(true)
-                setMsg('Usuario registrado exitosamente, haga click en ingresar')
-                setError(null)
+                localStorage.setItem('user_name', response.data.user_name);
+                localStorage.setItem('question', response.data.question);
+                localStorage.setItem('userActualQuestion', 1);
+                localStorage.setItem('level', 0);
+                setSuccess(true);
             })
             .catch(error=>{
-            console.log(error.request.status);
-            if (error.request.status === 422){
-                setError("Usuario ya está registrado")
-            }
-            
+                // console.log(error.request.response);
+            setError("Ocurrio un error")
             });
     }
   return (
     <>
     {success ? (
-        <section>
-            <h1>Success!</h1>
-            <p>
-                <a href="#">Sign In</a>
-            </p>
-        </section>
+         <Navigate to='/'/>
     ) : (
         <div className="container vh-100">
              {error != null ? (
                 <p className='text-center text-danger mb-0 font-weight-bold'>{error}</p>
                 ) : (
                   <div>
-                <p className='text-center text-primary mb-0 font-weight-bold'>{msg}</p>
                   </div>
                 )
               }
@@ -154,7 +138,7 @@ export default function Register() {
                                     />
                                     <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
                                         <FontAwesomeIcon icon={faInfoCircle} />
-                                        6 a 24 caracteres.<br />
+                                        8 a 24 caracteres.<br />
                                         La contraseña debe tener mayúsculas, minúsculas, numeros y un simbolo especial.<br />
                                         Carácteres sugeridos: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
                                     </p>
