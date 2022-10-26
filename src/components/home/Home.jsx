@@ -1,11 +1,19 @@
 
 import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import Sad from '../../../public/Sad'
+
 
 import { useNavigate, Navigate } from "react-router-dom";
 import { useEffect } from 'react';
 import styles from './Home.css'
+
+import Male_happy from '../../avatars/male/Male_happy'
+import Male_sad from '../../avatars/male/Male_sad'
+
+import Female_happy from '../../avatars/female/Female_happy'
+import Female_sad from '../../avatars/female/Female_sad'
+
+
 export default function Home() {
     
    const navigate = useNavigate()
@@ -40,7 +48,8 @@ export default function Home() {
                      <ambientLight intensity={0.1} />
                      <directionalLight intensity={0.4} />
                      <Suspense fallback={null}>
-                        <Sad position={[-1.5, -1, 0]} scale={[1.5,1.5,1.5]}/> 
+                        <Female_sad position={[-1.5, -1, 0]} scale={[1.5,1.5,1.5]}/> 
+                        {/* <Male_sad position={[-1.5, -1, 0]} scale={[1.5,1.5,1.5]}/>  */}
                      </Suspense>
                      
                   </Canvas>
