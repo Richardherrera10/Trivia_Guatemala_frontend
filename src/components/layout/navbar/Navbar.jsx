@@ -46,7 +46,8 @@ export default function Navbar() {
           <div className="btn-group dropleft ml-3">
             <span type="button" className="menu-user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
             <div className="dropdown-menu">     
-              <a className="dropdown-item" onClick={logout} href="#">Salir</a>     
+            <a className="dropdown-item" href="/profile">Mi Peril</a>
+              <a className="dropdown-item" onClick={logout} href="#">Salir</a>
             </div>
           </div>
         </div>

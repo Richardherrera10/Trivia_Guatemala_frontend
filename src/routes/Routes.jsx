@@ -3,8 +3,10 @@ import {Route, Routes, useParams} from 'react-router-dom'
 import HomeContainer from '../components/container/HomeContainer'
 import LoginContainer from '../components/container/LoginContainer'
 import TriviaContainer from '../components/container/TriviaContainer'
+import ProfileContainer from '../components/container/ProfileContainer'
 import Login from '../components/login/Login'
 import Register from '../components/register/Register'
+import Profile from '../components/profile/profile'
 import { UserProvider } from '../UserContext'
 export function RoutesApp () {
     
@@ -18,6 +20,7 @@ export function RoutesApp () {
                     <Route path="/login" element={<Login />}></Route>
                     <Route path="/register" element={<Register />}></Route>
                     <Route path="/trivia" element={<TriviaContainer />}></Route>
+                    <Route path="/profile" element={<ProfileContainer />}></Route>
                 </Routes>
             </UserProvider>
         )

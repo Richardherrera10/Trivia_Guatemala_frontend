@@ -6,7 +6,6 @@ import styles from './Register.css'
 import axios from '../../service/api';
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = '/register'
 
 export default function Register() {
 
@@ -16,7 +15,7 @@ export default function Register() {
     const [user, setUser] = useState('');
     const [validName, setValidName] = useState(false);
     const [userFocus, setUserFocus] = useState(false);
-
+    const [avatar, setAvatar] = useState('');
     const [pwd, setPwd] = useState('');
     const [validPwd, setValidPwd] = useState(false);
     const [pwdFocus, setPwdFocus] = useState(false);
@@ -53,12 +52,13 @@ export default function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         console.log(name,pwd, email)
-        const data = { name: name, email:email, password: pwd, password_confirmation: pwd };
+        const data = { name: name, email:email, avatar: avatar, password: pwd, password_confirmation: pwd };
         axios.post("https://triviaguatemala.webmands.com/public/api/register", data)
             .then(response => {
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('user_name', response.data.user_name);
                 localStorage.setItem('question', response.data.question);
+                localStorage.setItem('avatar', response.data.avatar);
                 localStorage.setItem('userActualQuestion', 1);
                 localStorage.setItem('level', 0);
                 setSuccess(true);
@@ -117,6 +117,24 @@ export default function Register() {
                                         onFocus={() => setEmailFocus(true)}
                                         onBlur={() => setEmailFocus(false)}
                                     />
+                                </div>
+                                <div className="form-group text-left">
+                                    <label htmlFor="username" className="font-weight-bold">Avatar:</label>
+                                    <select 
+                                        className="form-control form-control-sm avatar"
+                                        id="avatar"
+                                        ref={userRef}
+                                        autoComplete="off"
+                                        onChange={(e) => setAvatar(e.target.value)}
+                                        value={avatar}
+                                        required
+                                        onFocus={() => setAvatarFocus(true)}
+                                        onBlur={() => setAvatarFocus(false)}
+                                        >
+                                        <option value="">Seleccione una opcion</option>
+                                        <option value="1">Masculino</option>
+                                        <option value="2">Femenino</option>
+                                    </select>
                                 </div>
                                 <div className="form-group text-left">
                                     <label htmlFor="password" className="font-weight-bold">
