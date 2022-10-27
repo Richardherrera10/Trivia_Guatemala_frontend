@@ -6,21 +6,36 @@ import ProgressBarContainer from '../../container/ProgressBarContainer';
 import { Navigate } from "react-router-dom";
 import React from 'react'
 import UserContext from '../../../UserContext';
-
+import axios from '../../../service/api.js';
 
 export default function Navbar() {
   const [isCorrectInfo, setIsCorrectInfo] = useState(false)
   const { loginName } = useContext(UserContext)
   const { data } = useContext(UserContext)
+  
   const logout = async (e) => {
     e.preventDefault()    
-    setIsCorrectInfo(true);
-    localStorage.removeItem('token');
-    localStorage.removeItem('user_name');
-    localStorage.removeItem('question');
-    localStorage.removeItem('level');
-    localStorage.removeItem('userActualQuestion');
-}
+    const config = {
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    };
+    axios.post("https://triviaguatemala.webmands.com/public/api/logout", data, config)
+    .then(response => {
+        setIsCorrectInfo(true);
+        localStorage.removeItem('token');
+        localStorage.removeItem('user_name');
+        localStorage.removeItem('question');
+        localStorage.removeItem('level');
+        localStorage.removeItem('userActualQuestion');
+      },
+    )
+    .catch(error=>{
+        console.log(error);
+      }
+    );
+  }
 
 
 

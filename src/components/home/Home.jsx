@@ -31,29 +31,50 @@ export default function Home() {
                <Navigate to='/login'/>
             ) : (
                <>
-                  <Canvas
-                     camera={{ position: [2, 0, 15], fov: 15 }}
-                     style={{
-                     
-                        backgroundImage: 'url("../../../public/light_bk.jpg")',
-                        backgroundSize: '100%',
-                        width: '100vw',
-                        height: '100vh',
-                        zIndex: -1,
-                        position: 'relative',
-                        
-                     }}
-                  >
+                  {(localStorage.getItem('avatar') == '1') ? (
+                     <>
+                        <Canvas
+                           camera={{ position: [2, 0, 15], fov: 15 }}
+                           style={{
+                              backgroundImage: 'url("../../../public/light_bk.jpg")',
+                              backgroundSize: '100%',
+                              width: '100vw',
+                              height: '100vh',
+                              zIndex: -1,
+                              position: 'relative',
+                           }}>
+                        <ambientLight intensity={1.25} />
+                        <ambientLight intensity={0.1} />
+                        <directionalLight intensity={0.4} />
+                        <Suspense fallback={null}>
+                           <Male_sad position={[-1.5, -1, 0]} scale={[1.5,1.5,1.5]}/> 
+                        </Suspense>
+                        </Canvas>
+                        <button onClick={navigateTrivia} className="button-77" id='btnJugar'>JUGAR</button>
+                     </>
+                  ) :  <>
+                     <Canvas
+                        camera={{ position: [2, 0, 15], fov: 15 }}
+                        style={{
+                           backgroundImage: 'url("../../../public/light_bk.jpg")',
+                           backgroundSize: '100%',
+                           width: '100vw',
+                           height: '100vh',
+                           zIndex: -1,
+                           position: 'relative',
+                        }}
+                     >
                      <ambientLight intensity={1.25} />
                      <ambientLight intensity={0.1} />
                      <directionalLight intensity={0.4} />
                      <Suspense fallback={null}>
-                        <Female_sad position={[-1.5, -1, 0]} scale={[1.5,1.5,1.5]}/> 
+                        <Female_sad position={[-1.5, -1, 0]} scale={[1.5, 1.5, 1.5]} />
                         {/* <Male_sad position={[-1.5, -1, 0]} scale={[1.5,1.5,1.5]}/>  */}
                      </Suspense>
-                     
-                  </Canvas>
-                  <button onClick={navigateTrivia} className="button-77" id='btnJugar'>JUGAR</button>
+                     </Canvas>
+                        <button onClick={navigateTrivia} className="button-77" id='btnJugar'>JUGAR</button>
+                     </>
+                  }
                </>
             )}
       </>       
