@@ -15,7 +15,10 @@ export default function Register() {
     const [user, setUser] = useState('');
     const [validName, setValidName] = useState(false);
     const [userFocus, setUserFocus] = useState(false);
+
     const [avatar, setAvatar] = useState('');
+    const [avatarFocus, setAvatarFocus] = useState(false);
+
     const [pwd, setPwd] = useState('');
     const [validPwd, setValidPwd] = useState(false);
     const [pwdFocus, setPwdFocus] = useState(false);
