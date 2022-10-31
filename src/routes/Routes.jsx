@@ -4,6 +4,7 @@ import HomeContainer from '../components/container/HomeContainer'
 import LoginContainer from '../components/container/LoginContainer'
 import TriviaContainer from '../components/container/TriviaContainer'
 import ProfileContainer from '../components/container/ProfileContainer'
+import AdminContainer from '../components/container/AdminContainer'
 import Login from '../components/login/Login'
 import Register from '../components/register/Register'
 import Profile from '../components/profile/profile'
@@ -21,6 +22,7 @@ export function RoutesApp () {
                     <Route path="/register" element={<Register />}></Route>
                     <Route path="/trivia" element={<TriviaContainer />}></Route>
                     <Route path="/profile" element={<ProfileContainer />}></Route>
+                    <Route path="/admin" element={<AdminContainer />}></Route>
                 </Routes>
             </UserProvider>
         )
