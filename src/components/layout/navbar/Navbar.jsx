@@ -47,21 +47,25 @@ export default function Navbar() {
         <div className='progreso'>
           <div>
             <div>
-              <ProgressBar color={"#FF7A00"}  value={30} max={100} />
+              <ProgressBar color={"#FF7A00"}  value={Number(localStorage.getItem('userActualQuestion'))-1} max={10} />
             </div>
             <div className='flexProgressBar'>
               <div>
                 <span>Nivel {localStorage.getItem('level')}</span>
               </div>
               <div>
-                <span>30%</span>
+                {<>
+                <span>{(Number(localStorage.getItem('userActualQuestion')-1))*10}%</span>
+                </>
+                }
+                
               </div>
             </div>
           </div>
           <div className="btn-group dropleft ml-3">
             <span type="button" className="menu-user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
             <div className="dropdown-menu">     
-            <a className="dropdown-item" href="/profile">Mi Peril</a>
+            <a className="dropdown-item" href="/profile">Mi Perfil</a>
               <a className="dropdown-item" onClick={logout} href="#">Salir</a>
             </div>
           </div>
