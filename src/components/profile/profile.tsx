@@ -19,45 +19,44 @@ export default function Profile() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(email, pwd, pwd);
-    const config = {
+    console.log('nuevo nombre es', userName)
+      const config = {
       headers:{
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
     };
-    const data = { name:name};
-    axios.put("https://triviaguatemala.webmands.com/public/api/updateDataUser", data, config)
+    const data = { name: userName};
+      axios.put("https://triviaguatemala.webmands.com/public/api/updateDataUser", data, config)
         .then(response => {
             localStorage.setItem('user_name', response.data.user_name);
-            setIsCorrectInfo(true);
-            window.location.reload();
+            console.log('local storage ahora es', localStorage)
+            setSuccess(true)
           },
         )
         .catch(error=>{}
         );
-  }
 
-  let emailUser;
-  if (!localStorage.getItem('email')) {
-    emailUser = ""
-  } else {
-    emailUser = localStorage.getItem('email')
   }
-  let useName;
-  if (!localStorage.getItem('user_name')) {
-    useName = ""
-  } else {
-    useName = localStorage.getItem('user_name')
+  const handleChange = (e) => {
+    setUserName(e.target.value)
   }
-
  
+   useEffect(() => {
+    let nombre = localStorage.getItem('user_name')
+   setUserName(String(nombre))
+   setEmail(String(localStorage.getItem('email')))
+ }, [])
+
+
+  const [userName, setUserName] = useState('')
+
+
   return (
     <>
-    {success ? (
-         <Navigate to='/'/>
-    ) : (
-        <div className="container vh-100">
+    {success ? ( <Navigate to='/'/>):
+    (<>
+         <div className="container vh-100">
              {error != null ? (
                 <p className='text-center text-danger mb-0 font-weight-bold'>{error}</p>
                 ) : (
@@ -78,8 +77,8 @@ export default function Profile() {
                                         type="text"
                                         id="text"
                                         autoComplete="off"
-                                        onChange={(e) => setName(e.target.value)}
-                                        value={useName}
+                                        onChange={handleChange}
+                                        defaultValue={userName}
                                         required
                                         onFocus={() => setNameFocus(true)}
                                         onBlur={() => setNameFocus(false)}
@@ -91,7 +90,7 @@ export default function Profile() {
                                         className="form-control form-control-sm username"
                                         type="email"
                                         id="email"
-                                        value={emailUser}
+                                        value={email}
                                         disabled
                                     />
                                 </div>
@@ -102,7 +101,11 @@ export default function Profile() {
                 </div>
             </div>
         </div>
-        )}
+
+    </>
+    )}
+       
+       
     </>
   )
 }
