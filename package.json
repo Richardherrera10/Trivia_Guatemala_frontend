@@ -1,15 +1,15 @@
 {
-  "homepage": "http://Richardherrera10.github.io/Trivia_Guatemala_frontend",
   "name": "computadoras-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy":"gh-pages -d build",
+    
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy":"gh-pages -d build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
