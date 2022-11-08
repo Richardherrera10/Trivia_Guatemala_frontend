@@ -1,7 +1,23 @@
 .navbar-custom {
     background-color:#FFE1B2
 }
-#menu__toggle {
+.dropdown-menu {
+  left: -285% !important;
+  min-width: 0 !important;
+}
+
+.navbar-custom.navbar{
+  justify-content: space-between;
+}
+.flexProgressBar{
+  display: flex;
+  justify-content: space-between;
+}
+.dnUlAZ progress{
+  margin-right: 0 !important;
+  font-weight: 12px;
+}
+/* #menu__toggle {
     opacity: 0;
   }
   #menu__toggle:checked + .menu__btn > span {
@@ -71,8 +87,21 @@
   }
   .menu__item:hover {
     background-color: #CFD8DC;
+  } */
+  .btn-customized{
+    background-color: #FF7A00; 
+    border-color: #e46f01;
+    color: #ffffff;
+    font-weight: bold;
   }
-
+  .btn-customized:hover,
+  .btn-customized:active,
+  .btn-customized:focus {
+      color: #fff;
+      background-color: #e46f01;
+      border-color: #FF7A00;
+      color: #ffffff
+  }
   .progreso {
     display: flex;
     align-items:center;

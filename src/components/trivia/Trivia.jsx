@@ -1,148 +1,149 @@
 import {React, useState, useEffect, useContext} from 'react'
 import styles from './Trivia.css'
-
 import axios from '../../service/api'
 import UserContext from '../../UserContext'
-const TRIVIA_URL =  `/trivia/question/1`
-const RESPONSE_URL =  `/trivia/response`
-
-let numQuestions = 1
-// const token  = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NzdlOTAyNy01MDFlLTQ2NDAtOTM1Yy0wNDEwNThiZGY2YzYiLCJqdGkiOiIzOWMzYzYxNTk4ZWUxZDFlOGYwOTUwOGE0MDNlN2U5NDQ0OTNiNDVjMDRmN2ViNzhjMTcxZDQ2ZWYyZDZmNzA1ZDBjNmMzNjhlYmU1OGI5MyIsImlhdCI6MTY2NjEzNjkzOSwibmJmIjoxNjY2MTM2OTM5LCJleHAiOjE2OTc2NzI5MzksInN1YiI6IjkiLCJzY29wZXMiOltdfQ.bTDcFTYKzipZjjQHU_BYyOa4wRVAMrSZHWiyhRww2yNffaQDyubnyrrMz8hFP0a6zP27Dit_dpntW1RWyjcA6taa5QKO3Tt79AtUSpRVvgZEgmcyqpmsg2R2stkogqrAz7tnIiIgd52TfzTSNI8rRXvlBLWPvWIPQXJjtlqJBN0nAWrgVMyj3t57bLyhEXYQmg8FugxlQ87FmmwKep427fFWbdmJD2R74BSPP6R4FA7xOLC2VFWhZo71FBmCALMWIa0K7J18eoiNkpp_R6CZ0UiyBDl8eDvyPtcl-D3QodAPuaqNAf8lODgetZzVkhXIZOAt1e2wYH8c8me2zG8AT34hm0NIIDMCt7iG5034ZAVwuAQfhn15xNoDQhmbeBbOepH_n_ogvG5E03SmpBWEQBwpbQk0-fAxYPpQjbIW014r5KYj7cLKI2fK8O-XZrhZL2aNYSF5tRI47WIfqqFZSf15w6bfY0eMZ5smIkUEbi5tAsVZNQ9SDttjBBdR_Oek3A7GeVssRyc9wM_L0qNMgaG4YWqapxnFtNWLavipIi9Remjn15osROjb24jQ8M-e4k85yKBrpynz0y_fZ6Txkob9Bmyw22xpURufl5Oe3PFoIsdxXnf174rytWlgVRQuetN7_Fv6roDKB9WSy0QYyTRjGdB-9ESUp7BRF5kvEOc"
+import Swal from 'sweetalert2'
 
 export default function Trivia() {
-
- 
-  const { data } = useContext(UserContext)
-  const { token } = useContext(UserContext)
- const [showResults, setShowResults] = useState(false);
- const [currentQuestion, setCurrentQuestion] = useState(0);
- const [score, setScore] = useState(0);
-const [arrayPreguntas, setArrayPreguntas] = useState([])
-console.log('token del api es', token)
-console.log('data en trivia', data)
+  const [showResults, setShowResults] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [score, setScore] = useState(0);
+  const [arrayPreguntas, setArrayPreguntas] = useState([])
+  var [quest, setQuest] = useState([])
 
 useEffect(() => {
-  while (numQuestions <= 10) {
-
-    const getAllQs = async ()=> {
- 
-      const response = await axios.get(`/trivia/question/${numQuestions}`,
-        { headers : {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`} 
-        }
-      )
-     
-      setArrayPreguntas(arrayPreguntas => [...arrayPreguntas, response.data])
-      
+  const config = {
+    headers:{
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
     }
-    getAllQs()
-    ++numQuestions
-   }
+  };
+  if(localStorage.getItem('userActualQuestion')){
+    quest = localStorage.getItem('userActualQuestion');
+    setQuest(quest);
+  }else{
+    quest = 1;
+    setQuest(quest);
+  }
+  axios.get("https://triviaguatemala.webmands.com/public/api/trivia/question/"+quest, config)
+  .then(response => {
+      setArrayPreguntas(response.data);
+      
+    },
+  )
+  .catch(error=>{
+      console.log(error);
+    }
+  );
 }, [])
-
-useEffect(() => {
-setCurrentQuestion(data.question)
-}, [])
-
-
-
-let arrayOpciones = []
-
-arrayPreguntas.forEach(element=>{
-  
-  arrayOpciones.push({
-    texto: element.pregunta,
-    opciones: [
-      element.respuesta_1, element.respuesta_2, element.respuesta_3
-    ]
-  })
-
-})
-
-console.log('arrayopciones', arrayOpciones)
 
  const optionClicked = (isCorrect) => {
-   
-   if (isCorrect) {
-     setScore(score + 1);
-     
-  
-
-   }
-
- 
-   if ((currentQuestion + 1 < arrayOpciones.length) && isCorrect) {
-
-     setCurrentQuestion(currentQuestion + 1);
-   } 
-   if ((currentQuestion + 1 >= arrayOpciones.length)){
-     setShowResults(true);
-   }
-
-   
-   const getResponse = async() => {
-    const response = await axios.post(RESPONSE_URL,
-      JSON.stringify({isCorrect}), 
-      { headers : {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`} 
+  if(isCorrect==0){
+    Swal.fire({
+      icon: 'error',
+      title: 'Upss... Esta no es la respuesta correcta',
+      confirmButtonText: 'Seguir Jugando',
+      confirmButtonColor: "rgba(165,220,134,.9)",
+      showDenyButton: true,
+      denyButtonText: `Salir`,
+    }).then((result) => {
+      if (result.isDenied) {
+        window.location.href = "/";
       }
-      
-  )
-  console.log('api response de respuesta', response.data)
-   }
-   getResponse()
+    });
+  }else if(isCorrect==1){
+    const config = {
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    };
+    const data = { isCorrect : 1};
+    axios.post("https://triviaguatemala.webmands.com/public/api/trivia/response", data, config)
+    .then(response => {
+        localStorage.setItem('userActualQuestion', response.data.question);
+        if(response.data.question == 6 || response.data.question == 11 || response.data.question == 16){
+          localStorage.setItem('level', localStorage.getItem('level')+1);
+        }
+        Swal.fire({
+          icon: 'success',
+          title: '¡Respuesta correcta!',
+          confirmButtonText: 'Seguir Jugando',
+          confirmButtonColor: "rgba(165,220,134,.9)",
+          showDenyButton: true,
+          denyButtonText: `Salir`,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload()
+          } else if (result.isDenied) {
+            window.location.href = "/";
+          }
+        })
+      },
+    )
+    .catch(error=>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Ocurrió un error, intenta nuevamente',
+          footer: '<a className="btn btn-danger" href="/">Salir</a>'
+        })
+      }
+    );
+    
+  }
  };
 
-
- return (
-  
+ return (  
    <>
-   {(arrayOpciones.length === 10) ? (
-
+   {(arrayPreguntas.pregunta != undefined) ? (
     <div className="App">
-    
-     {/* 2. Current Score  */}
-     <h2>Punteo: {score*10}%</h2>
-
-     {/* 3. Show results or show the question game  */}
      {showResults ? (
-       /* 4. Final Results */
        <div className="final-results">
          <h1>¡Felicidades!</h1>
-         {/* <h2 >
-           {score} out of {arrayOpciones.length} correct - (
-           {(score / arrayOpciones.length) * 100}%)
-         </h2> */}
        </div>
-     ) : (
-    
-      
-       <div className="question-card">
-         {/* Current Question  */}
-         <h2 className='question-number'>
-           Pregunta: {currentQuestion + 1} de {arrayOpciones.length}
-         </h2>
-         <h3 className="question-text">{arrayOpciones[currentQuestion].texto }</h3>
-
-         {/* List of possible answers  */}
-         
-         <ul>
-           {arrayOpciones[currentQuestion].opciones.map((opcion) => {
-            
-             return (
-              
-               <li onClick={()=>optionClicked(opcion.is_correct)}>
-                 {opcion.text}
-               </li>
-             );
-           })}
-         </ul>
-       </div>
+     ) : (  
+      <div className="container">
+        <div className='row justify-content-center'>
+          <div className="col-sm-6 mt-5">
+            <span className='mt-5'>Pregunta #{quest}</span>
+            <h2 className='mb-5'>{arrayPreguntas.pregunta}</h2>
+            <h4 className='btn btn-primary btn-sm d-block' onClick={()=> optionClicked(arrayPreguntas.respuesta_1.is_correct)}>{arrayPreguntas.respuesta_1.text}</h4>
+            <h4 className='btn btn-primary btn-sm d-block' onClick={()=> optionClicked(arrayPreguntas.respuesta_2.is_correct)}>{arrayPreguntas.respuesta_2.text}</h4>
+            <h4 className='btn btn-primary btn-sm d-block' onClick={()=> optionClicked(arrayPreguntas.respuesta_3.is_correct)}>{arrayPreguntas.respuesta_3.text}</h4>
+          </div>
+        </div>
+      </div>    
      )}
    </div> 
-   ) : <h1> LOADING</h1> }
+   ) :
+    <div className="container mt-5">
+      <div className='row justify-content-center mt-5'>
+      <svg className="pl" viewBox="0 0 64 64" width="64px" height="64px" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#000" />
+            <stop offset="100%" stopColor="#fff" />
+          </linearGradient>
+          <mask id="grad-mask">
+            <rect x="0" y="0" width="64" height="64" fill="url(#grad)" />
+          </mask>
+        </defs>
+        <circle className="pl__ring" cx="32" cy="32" r="26" fill="none" stroke="hsl(223,90%,55%)" strokeWidth="12" strokeDasharray="169.65 169.65" strokeDashoffset="-127.24" strokeLinecap="round" transform="rotate(135)" />
+        <g fill="hsl(223,90%,55%)">
+          <circle className="pl__ball1" cx="32" cy="45" r="6" transform="rotate(14)" />
+          <circle className="pl__ball2" cx="32" cy="48" r="3" transform="rotate(-21)" />
+        </g>
+        <g mask="url(#grad-mask)">
+          <circle className="pl__ring" cx="32" cy="32" r="26" fill="none" stroke="hsl(283,90%,55%)" strokeWidth="12" strokeDasharray="169.65 169.65" strokeDashoffset="-127.24" strokeLinecap="round" transform="rotate(135)" />
+          <g fill="hsl(283,90%,55%)">
+            <circle className="pl__ball1" cx="32" cy="45" r="6" transform="rotate(14)" />
+            <circle className="pl__ball2" cx="32" cy="48" r="3" transform="rotate(-21)" />
+          </g>
+        </g>
+      </svg> 
+    </div>
+    </div>
+      }
    </>
  );
 }

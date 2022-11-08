@@ -9,13 +9,13 @@ import UserContext from "../../UserContext";
 export default function Layout({children}) {
   const { loginName } = useContext(UserContext)
   const [load, setLoad] = useState(false)
-  console.log('login name en layout', loginName)
-  console.log('load original es', load)
+  // console.log('login name en layout', loginName)
+  // console.log('load original es', load)
   useEffect(() => {
   
-        console.log('cambiando')
+        // console.log('cambiando')
         setLoad(true)
-        console.log('load ahora es', load)
+        // console.log('load ahora es', load)
         
  }, [loginName]);
 
