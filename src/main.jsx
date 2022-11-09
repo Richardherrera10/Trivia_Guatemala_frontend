@@ -8,11 +8,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   
  
  
-      <BrowserRouter>
+      <HashRouter>
        
             <App />
       
-      </BrowserRouter>
+      </HashRouter>
    
 
     
